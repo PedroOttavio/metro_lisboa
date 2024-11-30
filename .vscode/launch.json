@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/ottavio/Documentos/projetos/metro_lisboa",
-      "program": "/home/ottavio/Documentos/projetos/metro_lisboa/build/Debug/outDebug",
+      "cwd": "/home/ottavio/Documentos/projetos/metro_lisboa/outros",
+      "program": "/home/ottavio/Documentos/projetos/metro_lisboa/outros/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
