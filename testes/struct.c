@@ -1,7 +1,6 @@
 typedef int TIPOPESO;  //peso associado à aresta que leva ao destino. Nesse caso, o numero de pontos entre uma estação e outra
 
 
-
 struct adjacencia{ //estrutura que representa a lista de adjacencia
     int vertice; //nosso vertice de destino
     TIPOPESO peso;      //peso da aresta, nesse caso, a distancia entre uma estacão e outra
@@ -24,3 +23,4 @@ struct grafo{       //guarda tudo sobre o grafo
 };
 
 typedef struct grafo GRAFO;
+typedef int booleano;
