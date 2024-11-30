@@ -63,3 +63,17 @@ booleano cria_aresta(GRAFO * grafo, int valor_inicial, int valor_final, TIPOPESO
     novo -> prox = grafo->adj[valor_inicial].cabeca; //o proximo elemento da adjacencia é o cabeça da lista 
 
 }
+
+//função responsável por imprimir o grafo
+void imprime(GRAFO *grafo) {
+    printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas);
+    for (int i = 0; i < grafo->vertices; i++) {
+        printf("%s (v%d): ", grafo->adj[i].nome, i);
+        ADJACENCIA *adj_temp = grafo->adj[i].cabeca;
+        while (adj_temp) {
+            printf("v%d(%d) ", adj_temp->vertice, adj_temp->peso);
+            adj_temp = adj_temp->prox;
+        }
+        printf("\n");
+    }
+}
