@@ -80,18 +80,20 @@ booleano cria_aresta(GRAFO *grafo, int valor_inicial, int valor_final, TIPOPESO 
 }
 
 // função responsável por imprimir o grafo
+
+//ta com um erro, não está printando o nome das estações, apenas o indice
 void imprime(GRAFO *grafo)
 {
-    printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas);
+    printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas); //printa a quantidade de vertices e arestas
     for (int i = 0; i < grafo->vertices; i++)
     {
-        printf("%s (v%d): ", grafo->adj[i].nome, i);
+        printf("%s (v%d)-> ", grafo->adj[i].nome, i);
         ADJACENCIA *adj_temp = grafo->adj[i].cabeca;
         while (adj_temp)
         {
             // printf("v%d [%d] ", adj_temp->vertice, adj_temp->peso);
             // adj_temp = adj_temp->prox;
-            printf("%s (v%d) [%d] ", grafo->adj[adj_temp->vertice].nome, adj_temp->vertice, adj_temp->peso);
+            printf("%s(v%d), peso: [%d]; ", grafo->adj[adj_temp->vertice].nome, adj_temp->vertice, adj_temp->peso);
             adj_temp = adj_temp->prox;
         }
         printf("\n");
