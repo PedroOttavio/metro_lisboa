@@ -1,3 +1,7 @@
+#ifndef STRUCT_H
+#define STRUCT_H
+
+
 typedef int TIPOPESO;  //peso associado à aresta que leva ao destino. Nesse caso, o numero de pontos entre uma estação e outra
 typedef int booleano;  //tipo booleano
 
@@ -64,3 +68,5 @@ typedef struct grafo GRAFO;
 #define estacao_entrecampos 26
 #define estacao_campopequeno 27
 #define estacao_saldanha 28
+
+#endif // STRUCT_H

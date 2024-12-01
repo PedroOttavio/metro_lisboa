@@ -89,7 +89,9 @@ void imprime(GRAFO *grafo)
         ADJACENCIA *adj_temp = grafo->adj[i].cabeca;
         while (adj_temp)
         {
-            printf("v%d(%d) ", adj_temp->vertice, adj_temp->peso);
+            // printf("v%d [%d] ", adj_temp->vertice, adj_temp->peso);
+            // adj_temp = adj_temp->prox;
+            printf("%s (v%d) [%d] ", grafo->adj[adj_temp->vertice].nome, adj_temp->vertice, adj_temp->peso);
             adj_temp = adj_temp->prox;
         }
         printf("\n");
@@ -99,6 +101,39 @@ void imprime(GRAFO *grafo)
 
 //função responsável por inserir as estações no grafo
 void insere_estacoes(GRAFO* grafo){
+
+    strcpy(grafo->adj[estacao_reboleira].nome, "Reboleira");
+    strcpy(grafo->adj[estacao_militar].nome, "Militar");
+    strcpy(grafo->adj[estacao_jardim].nome, "Jardim");
+    strcpy(grafo->adj[estacao_praca].nome, "Praca");
+    strcpy(grafo->adj[estacao_sebastiao].nome, "Sebastiao");
+    strcpy(grafo->adj[estacao_marques].nome, "Marques");
+    strcpy(grafo->adj[estacao_estrela].nome, "Estrela");
+    strcpy(grafo->adj[estacao_baixa_chiado].nome, "Baixa-Chiado");
+    strcpy(grafo->adj[estacao_sondre].nome, "Sondre");
+    strcpy(grafo->adj[estacao_terreiro].nome, "Terreiro");
+    strcpy(grafo->adj[estacao_apolonia].nome, "Apolonia");
+    strcpy(grafo->adj[estacao_rossio].nome, "Rossio");
+    strcpy(grafo->adj[estacao_intendente].nome, "Intendente");
+    strcpy(grafo->adj[estacao_alameda].nome, "Alameda");
+    strcpy(grafo->adj[estacao_olaias].nome, "Olaias");
+    strcpy(grafo->adj[estacao_olivais].nome, "Olivais");
+    strcpy(grafo->adj[estacao_oriente].nome, "Oriente");
+    strcpy(grafo->adj[estacao_encarnacao].nome, "Encarnacao");
+    strcpy(grafo->adj[estacao_aeroporto].nome, "Aeroporto");
+    strcpy(grafo->adj[estacao_roma].nome, "Roma");
+    strcpy(grafo->adj[estacao_campo_grande].nome, "Campo Grande");
+    strcpy(grafo->adj[estacao_telheiras].nome, "Telheiras");
+    strcpy(grafo->adj[estacao_ameixoeira].nome, "Ameixoeira");
+    strcpy(grafo->adj[estacao_senhor_roubado].nome, "Senhor Roubado");
+    strcpy(grafo->adj[estacao_odivelas].nome, "Odivelas");
+    strcpy(grafo->adj[estacao_cidade_universitaria].nome, "Cidade Universitaria");
+    strcpy(grafo->adj[estacao_entrecampos].nome, "Entrecampos");
+    strcpy(grafo->adj[estacao_campopequeno].nome, "Campo Pequeno");
+    strcpy(grafo->adj[estacao_saldanha].nome, "Saldanha");
+
+
+
     cria_aresta(grafo, estacao_reboleira, estacao_militar, 5);
     cria_aresta(grafo, estacao_militar, estacao_jardim, 3);
     cria_aresta(grafo, estacao_jardim, estacao_praca, 1);
