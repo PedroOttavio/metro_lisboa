@@ -1,6 +1,7 @@
-#include <struct.c>
+#include "struct.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 
 GRAFO *cria_grafo(int quantidade_vertices)
@@ -64,8 +65,6 @@ booleano cria_aresta(GRAFO *grafo, int valor_inicial, int valor_final, TIPOPESO 
     novo1->prox = grafo->adj[valor_inicial].cabeca;        // o proximo elemento da adjacencia é o cabeça da lista
     grafo-> adj[valor_inicial].cabeca = novo1;             // a cabeça da lista passa a ser esse novo elemento
 
-
-
     //criando o segundo vertice
 
     ADJACENCIA * novo2 = cria_adjacente(valor_inicial, peso);
@@ -98,8 +97,8 @@ void imprime(GRAFO *grafo)
 }
 
 
+//função responsável por inserir as estações no grafo
 void insere_estacoes(GRAFO* grafo){
-
     cria_aresta(grafo, estacao_reboleira, estacao_militar, 5);
     cria_aresta(grafo, estacao_militar, estacao_jardim, 3);
     cria_aresta(grafo, estacao_jardim, estacao_praca, 1);
@@ -130,5 +129,5 @@ void insere_estacoes(GRAFO* grafo){
     cria_aresta(grafo, estacao_campopequeno, estacao_saldanha, 1);
     cria_aresta(grafo, estacao_saldanha, estacao_alameda, 1);
     cria_aresta(grafo, estacao_saldanha, estacao_sebastiao, 1);
-
 }
+

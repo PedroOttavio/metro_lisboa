@@ -1,4 +1,4 @@
-#include<struct.c>
+#include"struct.h"
 
 
 GRAFO * cria_grafo(int quantidade_vertices);

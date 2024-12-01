@@ -31,6 +31,8 @@ typedef struct grafo GRAFO;
 #define true 1
 #define false 0
 
+#define total_estacoes 29
+
 
 //estações 
 #define estacao_reboleira 0
