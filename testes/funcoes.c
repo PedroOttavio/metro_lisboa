@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define true 1
-#define false 0
 
 GRAFO *cria_grafo(int quantidade_vertices)
 {
@@ -48,22 +46,38 @@ booleano cria_aresta(GRAFO *grafo, int valor_inicial, int valor_final, TIPOPESO 
 {
 
     // se o grafo não existir, retorna null
-    if (grafo == NULL)
-    {
+    if (grafo == NULL){
         return false;
     }
     // se for menor que zero ou um valor maior que a quantidade definidade de vertices, a funcao retorna null
-    if ((valor_final < 0) || (valor_final >= grafo->vertices))
-    {
+    if ((valor_final < 0) || (valor_final >= grafo->vertices)){
         return false;
     }
-    if ((valor_inicial < 0) || (valor_inicial >= grafo->vertices))
-    {
+    if ((valor_inicial < 0) || (valor_inicial >= grafo->vertices)){
         return false;
     }
 
-    ADJACENCIA *novo = cria_adjacente(valor_final, peso); // criando uma nova adjacencia
-    novo->prox = grafo->adj[valor_inicial].cabeca;        // o proximo elemento da adjacencia é o cabeça da lista
+    ADJACENCIA *novo1 = cria_adjacente(valor_final, peso); // criando uma nova adjacencia
+    if(novo1 == NULL){          //verificar se o espaço foi alocado corretamente
+        return false;
+    }
+    novo1->prox = grafo->adj[valor_inicial].cabeca;        // o proximo elemento da adjacencia é o cabeça da lista
+    grafo-> adj[valor_inicial].cabeca = novo1;             // a cabeça da lista passa a ser esse novo elemento
+
+
+
+    //criando o segundo vertice
+
+    ADJACENCIA * novo2 = cria_adjacente(valor_inicial, peso);
+    if(novo2 == NULL){
+        return false;
+    }
+    novo2->prox = grafo->adj[valor_final].cabeca;
+    grafo->adj[valor_final].cabeca = novo2;
+    grafo->arestas++;
+
+    return true;
+    
 }
 
 // função responsável por imprimir o grafo
@@ -81,4 +95,40 @@ void imprime(GRAFO *grafo)
         }
         printf("\n");
     }
+}
+
+
+void insere_estacoes(GRAFO* grafo){
+
+    cria_aresta(grafo, estacao_reboleira, estacao_militar, 5);
+    cria_aresta(grafo, estacao_militar, estacao_jardim, 3);
+    cria_aresta(grafo, estacao_jardim, estacao_praca, 1);
+    cria_aresta(grafo, estacao_praca, estacao_sebastiao, 1);
+    cria_aresta(grafo, estacao_sebastiao, estacao_marques, 1);
+    cria_aresta(grafo, estacao_marques, estacao_estrela, 1);
+    cria_aresta(grafo, estacao_marques, estacao_baixa_chiado, 3);
+    cria_aresta(grafo, estacao_baixa_chiado, estacao_sondre, 1);
+    cria_aresta(grafo, estacao_baixa_chiado, estacao_terreiro, 1);
+    cria_aresta(grafo, estacao_terreiro, estacao_apolonia, 1);
+    cria_aresta(grafo, estacao_baixa_chiado, estacao_rossio, 1);
+    cria_aresta(grafo, estacao_rossio, estacao_intendente, 1);
+    cria_aresta(grafo, estacao_intendente, estacao_alameda, 2);
+    cria_aresta(grafo, estacao_alameda, estacao_olaias, 1);
+    cria_aresta(grafo, estacao_olaias, estacao_olivais, 3);
+    cria_aresta(grafo, estacao_olivais, estacao_oriente, 2);
+    cria_aresta(grafo, estacao_oriente, estacao_encarnacao, 2);
+    cria_aresta(grafo, estacao_encarnacao, estacao_aeroporto, 1);
+    cria_aresta(grafo, estacao_alameda, estacao_roma, 2);
+    cria_aresta(grafo, estacao_roma, estacao_campo_grande, 2);
+    cria_aresta(grafo, estacao_campo_grande, estacao_telheiras, 1);
+    cria_aresta(grafo, estacao_campo_grande, estacao_ameixoeira, 2);
+    cria_aresta(grafo, estacao_ameixoeira, estacao_senhor_roubado, 2);
+    cria_aresta(grafo, estacao_senhor_roubado, estacao_odivelas, 1);
+    cria_aresta(grafo, estacao_campo_grande, estacao_cidade_universitaria, 1);
+    cria_aresta(grafo, estacao_cidade_universitaria, estacao_entrecampos, 1);
+    cria_aresta(grafo, estacao_entrecampos, estacao_campopequeno, 1);
+    cria_aresta(grafo, estacao_campopequeno, estacao_saldanha, 1);
+    cria_aresta(grafo, estacao_saldanha, estacao_alameda, 1);
+    cria_aresta(grafo, estacao_saldanha, estacao_sebastiao, 1);
+
 }

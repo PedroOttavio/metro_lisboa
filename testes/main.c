@@ -1,4 +1,4 @@
-#include<grafo.c>// inclui os protótipos das funções
+#include<prototipos.c>// inclui os protótipos das funções
 #include<stdio.h>
 #include<stdlib.h>
 #include<struct.c>  //inclui as estruturas usadas
