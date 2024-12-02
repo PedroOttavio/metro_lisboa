@@ -284,7 +284,10 @@ void menor_caminho(GRAFO *g, int origem, int destino)
         printf("Erro!\n");
         return;
     }
-   
+    if (!g->adj[origem].status || !g->adj[destino].status) {
+        printf("Erro: Uma ou ambas as estações estão inativas.\n");
+        return;
+    }
     TIPOPESO distancias[total_estacoes];
     booleano visitados[total_estacoes];
     int predecessores[total_estacoes];
