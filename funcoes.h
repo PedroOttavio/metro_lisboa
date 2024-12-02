@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "prototipos.h"
 
 GRAFO *cria_grafo(int quantidade_vertices)
 {
@@ -149,7 +150,7 @@ void insere_estacoes(GRAFO *grafo)
     strcpy(grafo->adj[estacao_reboleira].nome, "Reboleira");
     adiciona_linha(&grafo->adj[estacao_reboleira], "Linha Azul");
 
-    strcpy(grafo->adj[estacao_militar].nome, "Militar");
+    strcpy(grafo->adj[estacao_militar].nome, "Colegio Militar");
     adiciona_linha(&grafo->adj[estacao_militar], "Linha Azul");
 
     strcpy(grafo->adj[estacao_jardim].nome, "Jardim");
