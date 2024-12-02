@@ -285,6 +285,7 @@ void menor_caminho(GRAFO *g, int origem, int destino)
    
     TIPOPESO distancias[total_estacoes];
     booleano visitados[total_estacoes];
+    int predecessores[total_estacoes];
 
 
     // inicializa todas as distâncias com "infinito" e visitados como false
@@ -292,6 +293,7 @@ void menor_caminho(GRAFO *g, int origem, int destino)
     {
         distancias[i] = 9999;
         visitados[i] = false;
+        predecessores[i] = -1;
     }
 
     distancias[origem] = 0; // de origem até ela mesma peso 0
@@ -341,11 +343,29 @@ void menor_caminho(GRAFO *g, int origem, int destino)
     if (distancias[destino] == 9999)
     {
         printf("Inacessivel\n");
+        return;
     }
     else
     {
         printf("%d\n", distancias[destino]);
     }
+     // reconstruir e imprimir o caminho
+    printf("Caminho: ");
+    int caminho[total_estacoes];
+    int tamanho = 0;
+    for (int v = destino; v != -1; v = predecessores[v])
+    {
+        caminho[tamanho++] = v;
+    }
+
+    // imprimir o caminho na ordem correta (de origem para destino)
+    for (int i = tamanho - 1; i >= 0; i--)
+    {
+        printf("%s", g->adj[caminho[i]].nome);
+        if (i > 0)
+            printf(" -> ");
+    }
+    printf("\n");
 }
 
 void menu(GRAFO *g)
@@ -382,3 +402,6 @@ void menu(GRAFO *g)
         }
     } while (escolha != 3); // Continua até o usuário escolher a opção de sair
 }
+
+
+//
