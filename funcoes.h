@@ -333,6 +333,7 @@ void menor_caminho(GRAFO *g, int origem, int destino)
             if (!visitados[v] && distancias[u] + peso < distancias[v])
             {
                 distancias[v] = distancias[u] + peso;
+                predecessores[v] = u;
             }
             adj = adj->prox;
         }
