@@ -21,6 +21,7 @@ struct vertice{
     int num_linhas; //estação pertence a quantas linhas
     char nome[50]; //inserir o nome da estação
     ADJACENCIA * cabeca; //cabeça da lista de adjacencia
+    booleano status;
 };
 typedef struct vertice VERTICE;
 

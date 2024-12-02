@@ -25,6 +25,7 @@ GRAFO *cria_grafo(int quantidade_vertices)
         g->adj[i].cabeca = NULL;
         strcpy(g->adj[i].nome, "");
         g->adj[i].num_linhas = 0; //inicializa o numero de linhas, só pra garantir
+        g->adj[i].status = false; //inicializa para falso o status dos que ainda não foram associadas a linhas
     }
 
     return g; // retorna o grafo;
@@ -141,6 +142,7 @@ void adiciona_linha(VERTICE *vertice, const char *linha)
     {
         strcpy(vertice->linhas[vertice->num_linhas], linha);
         vertice->num_linhas++;
+        vertice->status = true;
     }
 }
 
