@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
 GRAFO *cria_grafo(int quantidade_vertices)
 {
 
@@ -24,6 +23,7 @@ GRAFO *cria_grafo(int quantidade_vertices)
         // inicializamos todos os ponteiros com NULL para garantir.
         g->adj[i].cabeca = NULL;
         strcpy(g->adj[i].nome, "");
+        g->adj[i].num_linhas = 0; //inicializa o numero de linhas, só pra garantir
     }
 
     return g; // retorna o grafo;
@@ -47,28 +47,33 @@ booleano cria_aresta(GRAFO *grafo, int valor_inicial, int valor_final, TIPOPESO 
 {
 
     // se o grafo não existir, retorna null
-    if (grafo == NULL){
+    if (grafo == NULL)
+    {
         return false;
     }
     // se for menor que zero ou um valor maior que a quantidade definidade de vertices, a funcao retorna null
-    if ((valor_final < 0) || (valor_final >= grafo->vertices)){
+    if ((valor_final < 0) || (valor_final >= grafo->vertices))
+    {
         return false;
     }
-    if ((valor_inicial < 0) || (valor_inicial >= grafo->vertices)){
+    if ((valor_inicial < 0) || (valor_inicial >= grafo->vertices))
+    {
         return false;
     }
 
     ADJACENCIA *novo1 = cria_adjacente(valor_final, peso); // criando uma nova adjacencia
-    if(novo1 == NULL){          //verificar se o espaço foi alocado corretamente
+    if (novo1 == NULL)
+    { // verificar se o espaço foi alocado corretamente
         return false;
     }
-    novo1->prox = grafo->adj[valor_inicial].cabeca;        // o proximo elemento da adjacencia é o cabeça da lista
-    grafo-> adj[valor_inicial].cabeca = novo1;             // a cabeça da lista passa a ser esse novo elemento
+    novo1->prox = grafo->adj[valor_inicial].cabeca; // o proximo elemento da adjacencia é o cabeça da lista
+    grafo->adj[valor_inicial].cabeca = novo1;       // a cabeça da lista passa a ser esse novo elemento
 
-    //criando o segundo vertice
+    // criando o segundo vertice
 
-    ADJACENCIA * novo2 = cria_adjacente(valor_inicial, peso);
-    if(novo2 == NULL){
+    ADJACENCIA *novo2 = cria_adjacente(valor_inicial, peso);
+    if (novo2 == NULL)
+    {
         return false;
     }
     novo2->prox = grafo->adj[valor_final].cabeca;
@@ -76,12 +81,11 @@ booleano cria_aresta(GRAFO *grafo, int valor_inicial, int valor_final, TIPOPESO 
     grafo->arestas++;
 
     return true;
-    
 }
 
-// função responsável por imprimir o grafo
+// função responsável por imprimir o grafo (legada)
 
-//ta com um erro, não está printando o nome das estações, apenas o indice
+// ta com um erro, não está printando o nome das estações, apenas o indice
 
 // void imprime(GRAFO *grafo)
 // {
@@ -101,12 +105,13 @@ booleano cria_aresta(GRAFO *grafo, int valor_inicial, int valor_final, TIPOPESO 
 //     }
 // }
 
-void imprime(GRAFO *grafo){
-    printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas); // Print quantidade de vértices e arestas
-    printf("\n");
+void imprime(GRAFO *grafo)
+{
+    printf("\n======================================================================================================================\n");
+    printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas); // printa a quantidade de vertices e arestas
     for (int i = 0; i < grafo->vertices; i++)
     {
-        printf("%s (v%d) -> ", grafo->adj[i].nome, i);
+        printf("%s (v%d)-> ", grafo->adj[i].nome, i);
 
         // Exibe as linhas associadas à estação
         printf("Linhas: ");
@@ -124,23 +129,23 @@ void imprime(GRAFO *grafo){
             printf("%s(v%d), peso: [%d]; ", grafo->adj[adj_temp->vertice].nome, adj_temp->vertice, adj_temp->peso);
             adj_temp = adj_temp->prox;
         }
-         printf("\n\n");
+        printf("\n");
     }
-
-   
+    printf("\n======================================================================================================================\n");
 }
 
-
-
-void adiciona_linha(VERTICE *vertice, const char *linha) {      //conta a quantas linhas uma estação pertence
-    if (vertice->num_linhas < maximo_linhas) {
+void adiciona_linha(VERTICE *vertice, const char *linha)
+{ // conta a quantas linhas uma estação pertence
+    if (vertice->num_linhas < maximo_linhas)
+    {
         strcpy(vertice->linhas[vertice->num_linhas], linha);
         vertice->num_linhas++;
     }
 }
 
-//função responsável por inserir as estações no grafo
-void insere_estacoes(GRAFO *grafo) {
+// função responsável por inserir as estações no grafo
+void insere_estacoes(GRAFO *grafo)
+{
     strcpy(grafo->adj[estacao_reboleira].nome, "Reboleira");
     adiciona_linha(&grafo->adj[estacao_reboleira], "Linha Azul");
 
@@ -234,7 +239,7 @@ void insere_estacoes(GRAFO *grafo) {
     adiciona_linha(&grafo->adj[estacao_saldanha], "Linha Vermelha");
     adiciona_linha(&grafo->adj[estacao_saldanha], "Linha Verde");
 
-    //eu sou um comentário
+    // eu sou um comentário
 
     cria_aresta(grafo, estacao_reboleira, estacao_militar, 5);
     cria_aresta(grafo, estacao_militar, estacao_jardim, 3);
@@ -266,4 +271,113 @@ void insere_estacoes(GRAFO *grafo) {
     cria_aresta(grafo, estacao_campopequeno, estacao_saldanha, 1);
     cria_aresta(grafo, estacao_saldanha, estacao_alameda, 1);
     cria_aresta(grafo, estacao_saldanha, estacao_sebastiao, 1);
+}
+
+// função que acha o menor caminho de uma estação para outra, usando agoritmo djikstra
+void menor_caminho(GRAFO *g, int origem, int destino)
+{
+    if (origem < 0 || origem >= total_estacoes || destino < 0 || destino >= total_estacoes){
+        printf("Estacao de origem ou destino invalida.\n");
+        printf("Erro!\n");
+        return;
+    }
+   
+    TIPOPESO distancias[total_estacoes];
+    booleano visitados[total_estacoes];
+
+
+    // inicializa todas as distâncias com "infinito" e visitados como false
+    for (int i = 0; i < total_estacoes; i++)
+    {
+        distancias[i] = 9999;
+        visitados[i] = false;
+    }
+
+    distancias[origem] = 0; // de origem até ela mesma peso 0
+
+    // percorre o grafo
+    for (int i = 0; i < total_estacoes; i++)
+    {
+        // escolher o vértice não visitado com a menor distância
+        int menor_dist = 9999;
+        int u = -1;
+
+        for (int j = 0; j < total_estacoes; j++)
+        {
+            if (!visitados[j] && distancias[j] < menor_dist)
+            {
+                menor_dist = distancias[j];
+                u = j;
+            }
+        }
+
+        // se não houver vértices acessíveis, ou se chegamos ao destino, parar
+        if (u == -1 || u == destino)
+        {
+            break;
+        }
+
+        // marcar o vértice `u` como visitado
+        visitados[u] = true;
+
+        // Atualizar as distâncias para os vizinhos de `u`
+        ADJACENCIA *adj = g->adj[u].cabeca;
+        while (adj != NULL)
+        {
+            int v = adj->vertice;
+            TIPOPESO peso = adj->peso;
+
+            if (!visitados[v] && distancias[u] + peso < distancias[v])
+            {
+                distancias[v] = distancias[u] + peso;
+            }
+            adj = adj->prox;
+        }
+    }
+
+    // resultado: imprimir a distância para o destino
+    printf("Menor distância de %s para %s e: ", g->adj[origem].nome, g->adj[destino].nome); //alteração para printar o nome das estações e não o int
+    if (distancias[destino] == 9999)
+    {
+        printf("Inacessivel\n");
+    }
+    else
+    {
+        printf("%d\n", distancias[destino]);
+    }
+}
+
+void menu(GRAFO *g)
+{
+    int origem, destino, escolha;
+
+    do
+    {
+        // exibe as opções
+        printf("\nMenu:\n");
+        printf("1. Imprimir o 'mapa'\n");
+        printf("2. Encontrar menor caminho entre duas estacoes\n");
+        printf("3. Sair\n");
+        printf("Insira a opcao: ");
+        scanf("%d", &escolha);
+
+        switch (escolha)
+        {
+        case 1:
+            imprime(g); // Imprime as estações e suas adjacências
+            break;
+        case 2:
+            printf("Digite a estacao de origem (0 a %d): ", total_estacoes - 1);
+            scanf("%d", &origem);
+            printf("Digite a estacao de destino (0 a %d): ", total_estacoes - 1); // não sei se é necessário o -1, são 29 estações, 0 a 28
+            scanf("%d", &destino);
+            menor_caminho(g, origem, destino); // Chama o algoritmo de Dijkstra
+            break;
+        case 3:
+            printf("Saindo do menu...\n");
+            break;
+        default:
+            printf("Opcao invalida, tente novamente.\n");
+        }
+    } while (escolha != 3); // Continua até o usuário escolher a opção de sair
 }

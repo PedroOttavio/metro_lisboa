@@ -12,5 +12,7 @@ ADJACENCIA * cria_adjacente(int quantidade_vertices, int peso);
 void imprime(GRAFO *grafo);
 void insere_estacoes(GRAFO* grafo);
 void adiciona_linha(VERTICE *vertice, const char *linha);
+void menor_caminho(GRAFO *g, int origem, int destino);
+void menu(GRAFO *g);
 
 #endif
