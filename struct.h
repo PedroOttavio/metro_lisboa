@@ -1,6 +1,8 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+#define maximo_linhas 2
+
 
 typedef int TIPOPESO;  //peso associado à aresta que leva ao destino. Nesse caso, o numero de pontos entre uma estação e outra
 typedef int booleano;  //tipo booleano
@@ -15,6 +17,8 @@ typedef struct adjacencia ADJACENCIA;
 //aresta é a linha, vertice é a estação
 
 struct vertice{
+    char linhas[maximo_linhas][50]; //inserir a linha da estação
+    int num_linhas; //estação pertence a quantas linhas
     char nome[50]; //inserir o nome da estação
     ADJACENCIA * cabeca; //cabeça da lista de adjacencia
 };

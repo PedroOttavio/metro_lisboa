@@ -82,59 +82,159 @@ booleano cria_aresta(GRAFO *grafo, int valor_inicial, int valor_final, TIPOPESO 
 // função responsável por imprimir o grafo
 
 //ta com um erro, não está printando o nome das estações, apenas o indice
-void imprime(GRAFO *grafo)
-{
-    printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas); //printa a quantidade de vertices e arestas
+
+// void imprime(GRAFO *grafo)
+// {
+//     printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas); //printa a quantidade de vertices e arestas
+//     for (int i = 0; i < grafo->vertices; i++)
+//     {
+//         printf("%s (v%d)-> ", grafo->adj[i].nome, i);
+//         ADJACENCIA *adj_temp = grafo->adj[i].cabeca;
+//         while (adj_temp)
+//         {
+//             // printf("v%d [%d] ", adj_temp->vertice, adj_temp->peso);
+//             // adj_temp = adj_temp->prox;
+//             printf("%s(v%d), peso: [%d]; ", grafo->adj[adj_temp->vertice].nome, adj_temp->vertice, adj_temp->peso);
+//             adj_temp = adj_temp->prox;
+//         }
+//         printf("\n");
+//     }
+// }
+
+void imprime(GRAFO *grafo){
+    printf("Vertices: %d. Arestas: %d.\n", grafo->vertices, grafo->arestas); // Print quantidade de vértices e arestas
+    printf("\n");
     for (int i = 0; i < grafo->vertices; i++)
     {
-        printf("%s (v%d)-> ", grafo->adj[i].nome, i);
+        printf("%s (v%d) -> ", grafo->adj[i].nome, i);
+
+        // Exibe as linhas associadas à estação
+        printf("Linhas: ");
+        for (int j = 0; j < maximo_linhas; j++)
+        {
+            if (grafo->adj[i].linhas[j][0] != '\0') // Verifica se a linha está definida
+                printf("%s ", grafo->adj[i].linhas[j]);
+        }
+
+        // Exibe as conexões (vizinhas)
         ADJACENCIA *adj_temp = grafo->adj[i].cabeca;
+        printf("\n -> Vizinhas: ");
         while (adj_temp)
         {
-            // printf("v%d [%d] ", adj_temp->vertice, adj_temp->peso);
-            // adj_temp = adj_temp->prox;
             printf("%s(v%d), peso: [%d]; ", grafo->adj[adj_temp->vertice].nome, adj_temp->vertice, adj_temp->peso);
             adj_temp = adj_temp->prox;
         }
-        printf("\n");
+         printf("\n\n");
     }
+
+   
 }
 
 
+
+void adiciona_linha(VERTICE *vertice, const char *linha) {      //conta a quantas linhas uma estação pertence
+    if (vertice->num_linhas < maximo_linhas) {
+        strcpy(vertice->linhas[vertice->num_linhas], linha);
+        vertice->num_linhas++;
+    }
+}
+
 //função responsável por inserir as estações no grafo
-void insere_estacoes(GRAFO* grafo){
-
+void insere_estacoes(GRAFO *grafo) {
     strcpy(grafo->adj[estacao_reboleira].nome, "Reboleira");
+    adiciona_linha(&grafo->adj[estacao_reboleira], "Linha Azul");
+
     strcpy(grafo->adj[estacao_militar].nome, "Militar");
+    adiciona_linha(&grafo->adj[estacao_militar], "Linha Azul");
+
     strcpy(grafo->adj[estacao_jardim].nome, "Jardim");
+    adiciona_linha(&grafo->adj[estacao_jardim], "Linha Azul");
+
     strcpy(grafo->adj[estacao_praca].nome, "Praca");
+    adiciona_linha(&grafo->adj[estacao_praca], "Linha Azul");
+
     strcpy(grafo->adj[estacao_sebastiao].nome, "Sebastiao");
+    adiciona_linha(&grafo->adj[estacao_sebastiao], "Linha Azul");
+    adiciona_linha(&grafo->adj[estacao_sebastiao], "Linha Vermelha");
+
     strcpy(grafo->adj[estacao_marques].nome, "Marques");
+    adiciona_linha(&grafo->adj[estacao_marques], "Linha Azul");
+    adiciona_linha(&grafo->adj[estacao_marques], "Linha Verde");
+
     strcpy(grafo->adj[estacao_estrela].nome, "Estrela");
+    adiciona_linha(&grafo->adj[estacao_estrela], "Linha Azul");
+
     strcpy(grafo->adj[estacao_baixa_chiado].nome, "Baixa-Chiado");
+    adiciona_linha(&grafo->adj[estacao_baixa_chiado], "Linha Azul");
+    adiciona_linha(&grafo->adj[estacao_baixa_chiado], "Linha Verde");
+
     strcpy(grafo->adj[estacao_sondre].nome, "Sondre");
+    adiciona_linha(&grafo->adj[estacao_sondre], "Linha Azul");
+
     strcpy(grafo->adj[estacao_terreiro].nome, "Terreiro");
+    adiciona_linha(&grafo->adj[estacao_terreiro], "Linha Azul");
+
     strcpy(grafo->adj[estacao_apolonia].nome, "Apolonia");
+    adiciona_linha(&grafo->adj[estacao_apolonia], "Linha Azul");
+
     strcpy(grafo->adj[estacao_rossio].nome, "Rossio");
+    adiciona_linha(&grafo->adj[estacao_rossio], "Linha Verde");
+
     strcpy(grafo->adj[estacao_intendente].nome, "Intendente");
+    adiciona_linha(&grafo->adj[estacao_intendente], "Linha Verde");
+
     strcpy(grafo->adj[estacao_alameda].nome, "Alameda");
+    adiciona_linha(&grafo->adj[estacao_alameda], "Linha Verde");
+    adiciona_linha(&grafo->adj[estacao_alameda], "Linha Vermelha");
+
     strcpy(grafo->adj[estacao_olaias].nome, "Olaias");
+    adiciona_linha(&grafo->adj[estacao_olaias], "Linha Verde");
+
     strcpy(grafo->adj[estacao_olivais].nome, "Olivais");
+    adiciona_linha(&grafo->adj[estacao_olivais], "Linha Verde");
+
     strcpy(grafo->adj[estacao_oriente].nome, "Oriente");
+    adiciona_linha(&grafo->adj[estacao_oriente], "Linha Verde");
+
     strcpy(grafo->adj[estacao_encarnacao].nome, "Encarnacao");
+    adiciona_linha(&grafo->adj[estacao_encarnacao], "Linha Verde");
+
     strcpy(grafo->adj[estacao_aeroporto].nome, "Aeroporto");
+    adiciona_linha(&grafo->adj[estacao_aeroporto], "Linha Verde");
+
     strcpy(grafo->adj[estacao_roma].nome, "Roma");
+    adiciona_linha(&grafo->adj[estacao_roma], "Linha Vermelha");
+
     strcpy(grafo->adj[estacao_campo_grande].nome, "Campo Grande");
+    adiciona_linha(&grafo->adj[estacao_campo_grande], "Linha Verde");
+    adiciona_linha(&grafo->adj[estacao_campo_grande], "Linha Amarela");
+
     strcpy(grafo->adj[estacao_telheiras].nome, "Telheiras");
+    adiciona_linha(&grafo->adj[estacao_telheiras], "Linha Vermelha");
+
     strcpy(grafo->adj[estacao_ameixoeira].nome, "Ameixoeira");
+    adiciona_linha(&grafo->adj[estacao_ameixoeira], "Linha Vermelha");
+
     strcpy(grafo->adj[estacao_senhor_roubado].nome, "Senhor Roubado");
+    adiciona_linha(&grafo->adj[estacao_senhor_roubado], "Linha Vermelha");
+
     strcpy(grafo->adj[estacao_odivelas].nome, "Odivelas");
+    adiciona_linha(&grafo->adj[estacao_odivelas], "Linha Vermelha");
+
     strcpy(grafo->adj[estacao_cidade_universitaria].nome, "Cidade Universitaria");
+    adiciona_linha(&grafo->adj[estacao_cidade_universitaria], "Linha Amarela");
+
     strcpy(grafo->adj[estacao_entrecampos].nome, "Entrecampos");
+    adiciona_linha(&grafo->adj[estacao_entrecampos], "Linha Amarela");
+
     strcpy(grafo->adj[estacao_campopequeno].nome, "Campo Pequeno");
+    adiciona_linha(&grafo->adj[estacao_campopequeno], "Linha Amarela");
+
     strcpy(grafo->adj[estacao_saldanha].nome, "Saldanha");
+    adiciona_linha(&grafo->adj[estacao_saldanha], "Linha Vermelha");
+    adiciona_linha(&grafo->adj[estacao_saldanha], "Linha Verde");
 
-
+    //eu sou um comentário
 
     cria_aresta(grafo, estacao_reboleira, estacao_militar, 5);
     cria_aresta(grafo, estacao_militar, estacao_jardim, 3);
@@ -167,4 +267,3 @@ void insere_estacoes(GRAFO* grafo){
     cria_aresta(grafo, estacao_saldanha, estacao_alameda, 1);
     cria_aresta(grafo, estacao_saldanha, estacao_sebastiao, 1);
 }
-
