@@ -382,3 +382,6 @@ void menu(GRAFO *g)
         }
     } while (escolha != 3); // Continua até o usuário escolher a opção de sair
 }
+
+
+//
