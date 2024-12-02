@@ -1,6 +1,8 @@
 #include "prototipos.h" // inclui os protótipos das funções
 #include <stdio.h>
 #include <stdlib.h>
+#include "struct.h"
+#include "funcoes.h"
 
 
 
