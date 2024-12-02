@@ -3,6 +3,8 @@
 
 #define maximo_linhas 2
 
+//beba aguá.
+
 
 typedef int TIPOPESO;  //peso associado à aresta que leva ao destino. Nesse caso, o numero de pontos entre uma estação e outra
 typedef int booleano;  //tipo booleano
@@ -28,6 +30,7 @@ typedef struct vertice VERTICE;
 struct grafo{       //guarda tudo sobre o grafo
     int vertices;   //quantidade total de vertices
     int arestas;    //quantidade total de arestas
+    int capacidade; //capacidade maxima de vertices
     VERTICE * adj;  //e um arranjo de vertices, cada vertice com sua própria lista de adjacencia
 };
 
@@ -40,7 +43,8 @@ typedef struct grafo GRAFO;
 #define true 1
 #define false 0
 
-#define total_estacoes 29
+// #define total_estacoes 29- essa linha já não atende mais às crescentes necessidades do projeto. 
+//Ficará como recordação às futuras gerações, uma lição sobre planejamento e visão de longo prazo. 
 
 
 //estações 

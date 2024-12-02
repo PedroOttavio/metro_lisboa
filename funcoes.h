@@ -13,8 +13,9 @@ GRAFO *cria_grafo(int quantidade_vertices)
     }
 
     GRAFO *g = (GRAFO *)malloc(sizeof(GRAFO)); // aloca espaço para uma estrutura do tipo grafo
-    g->vertices = quantidade_vertices;         // atualiza o numero de vertices
+    g->vertices = 0;         // atualiza o numero de vertices
     g->arestas = 0;                            // atualiza o numero de arestas
+    g->capacidade = quantidade_vertices; 
     g->adj = (VERTICE *)malloc(quantidade_vertices * sizeof(VERTICE));
     // usando a quantidade passada por parametro, alocamos o espaço necessário para  a quantidade de vertices
 
@@ -149,6 +150,7 @@ void adiciona_linha(VERTICE *vertice, const char *linha)
 // função responsável por inserir as estações no grafo
 void insere_estacoes(GRAFO *grafo)
 {
+
     strcpy(grafo->adj[estacao_reboleira].nome, "Reboleira");
     adiciona_linha(&grafo->adj[estacao_reboleira], "Linha Azul");
 
@@ -411,3 +413,51 @@ void menu(GRAFO *g)
 
 
 //
+
+
+booleano abrindo_espacoNoGrafo(GRAFO *grafo) {
+    int nova_capacidade = grafo->capacidade + 1;
+    //pensando no desenvolvimento futuro, vamos usar o realloc, assim garantimos que nosso crescimento seja dinâmico e possamos nos desenvolver
+    //sem maiores problemas. Tudo para oferecer o melhor de nossos serviços para os nossos usuários! Tudo pelo dinheiro! Digo, usuários!
+    VERTICE *novo_adj = (VERTICE *)realloc(grafo->adj, nova_capacidade * sizeof(VERTICE)); 
+    if (novo_adj == NULL) {
+        printf("Erro no realloc: Alguma coisa errada não deu certo.\n");                 
+        return false;
+    }
+    grafo->adj = novo_adj;
+    grafo->capacidade = nova_capacidade;
+    return true;
+}
+
+void insere_nova_estacao(GRAFO * grafo ){
+
+    if(grafo->vertices >= grafo->capacidade){
+        if(!abrindo_espacoNoGrafo(grafo)){
+            return; //se não conseguir alocar memória, retornamos para a chamada da função
+        }
+    }
+    char nome[30];
+    char linha[30];
+
+    int numero_linhas, numero_conexoes, estacao_conectada, peso, linhas = 0;
+
+    printf("Insira o nome da nova estacao: ");
+    fgets(nome, 30, stdin);
+    do
+    {
+        printf("Insira o numero de linhas:(0 a 4): ");
+        scanf("%d", &linhas);
+    } while (numero_linhas < 0 || numero_linhas > 4);//verificar se a quantidade de linhas inserida pelo usuario é ou não valida
+    
+    numero_linhas = linhas;
+
+    for(int i = 0; i< numero_linhas; i++){
+        printf("Insira o nome da linha [%d]: ", i + 1);
+        fgets(linha, 30, stdin);
+        adiciona_linha(&grafo->adj[grafo->vertices], linha);
+    }
+    strcpy(grafo->adj[grafo->vertices].nome, nome);
+    grafo->adj[grafo->vertices].status = true;
+}
+
+       
