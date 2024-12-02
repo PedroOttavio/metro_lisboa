@@ -130,7 +130,7 @@ void imprime(GRAFO *grafo)
             printf("%s(v%d), peso: [%d]; ", grafo->adj[adj_temp->vertice].nome, adj_temp->vertice, adj_temp->peso);
             adj_temp = adj_temp->prox;
         }
-        printf("\n");
+         printf("\n");
     }
     printf("\n======================================================================================================================\n");
 }
