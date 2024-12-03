@@ -1,13 +1,16 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-#define maximo_linhas 2
+#define maximo_linhas 5
 
 //beba aguá.
 
+typedef enum { false, true } booleano;
+
+
+
 
 typedef int TIPOPESO;  //peso associado à aresta que leva ao destino. Nesse caso, o numero de pontos entre uma estação e outra
-typedef int booleano;  //tipo booleano
 
 struct adjacencia{ //estrutura que representa a lista de adjacencia
     int vertice; //nosso vertice de destino
@@ -19,9 +22,9 @@ typedef struct adjacencia ADJACENCIA;
 //aresta é a linha, vertice é a estação
 
 struct vertice{
-    char linhas[maximo_linhas][50]; //inserir a linha da estação
+    char linhas[maximo_linhas][30]; //inserir a linha da estação
     int num_linhas; //estação pertence a quantas linhas
-    char nome[50]; //inserir o nome da estação
+    char nome[30]; //inserir o nome da estação
     ADJACENCIA * cabeca; //cabeça da lista de adjacencia
     booleano status;
 };
@@ -30,7 +33,6 @@ typedef struct vertice VERTICE;
 struct grafo{       //guarda tudo sobre o grafo
     int vertices;   //quantidade total de vertices
     int arestas;    //quantidade total de arestas
-    int capacidade; //capacidade maxima de vertices
     VERTICE * adj;  //e um arranjo de vertices, cada vertice com sua própria lista de adjacencia
 };
 
@@ -43,9 +45,8 @@ typedef struct grafo GRAFO;
 #define true 1
 #define false 0
 
-// #define total_estacoes 29- essa linha já não atende mais às crescentes necessidades do projeto. 
-//Ficará como recordação às futuras gerações, uma lição sobre planejamento e visão de longo prazo. 
-
+#define total_estacoes 29 //total de estações, já que fazer de forma dinâmica não deu muito certo, vamos fazer dessa forma mesmo;
+//um pouco funcionando é melhor que nada funcionando.
 
 //estações 
 #define estacao_reboleira 0
