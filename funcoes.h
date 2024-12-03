@@ -370,7 +370,7 @@ void menor_caminho(GRAFO *g, int origem, int destino)
 
 void menu(GRAFO *g)
 {
-    int origem, destino, escolha;
+    int origem, destino, escolha, vertice;
 
     do
     {
@@ -379,6 +379,7 @@ void menu(GRAFO *g)
         printf("1. Imprimir o 'mapa'\n");
         printf("2. Encontrar menor caminho entre duas estacoes\n");
         printf("3. Sair\n");
+        printf("4. Desativar Estacao\n");
         printf("Insira a opcao: ");
         scanf("%d", &escolha);
 
@@ -397,10 +398,57 @@ void menu(GRAFO *g)
         case 3:
             printf("Saindo do menu...\n");
             break;
+        case 4:
+            printf("insira a estacao que deseja desativar (0 a %d): ", total_estacoes);
+            scanf("%d",&vertice);
+            remove_vertice(g,vertice);
+
+            break;
+
         default:
             printf("Opcao invalida, tente novamente.\n");
         }
     } while (escolha != 3); // Continua até o usuário escolher a opção de sair
+}
+void remove_vertice(GRAFO * g, int vertice){
+    if (vertice < 0 || vertice >= g->vertices) {
+        printf("Estação inválida.\n");
+        return;
+    }
+
+    // Remover todas as arestas que partem deste vértice
+    ADJACENCIA *atual = g->adj[vertice].cabeca;
+    while (atual != NULL) {
+        ADJACENCIA *temp = atual;
+        atual = atual->prox;
+        free(temp); // Libera memória das arestas
+    }
+    g->adj[vertice].cabeca = NULL;
+
+    // Remover todas as arestas que chegam a este vértice
+    for (int i = 0; i < g->vertices; i++) {
+        if (i == vertice) continue; // Ignora o próprio vértice
+        ADJACENCIA *anterior = NULL;
+        ADJACENCIA *adjacente = g->adj[i].cabeca;
+
+        while (adjacente != NULL) {
+            if (adjacente->vertice == vertice) {
+                if (anterior == NULL) {
+                    // Remover primeiro elemento da lista
+                    g->adj[i].cabeca = adjacente->prox;
+                } else {
+                    // Ajustar ponteiros para remover o nó
+                    anterior->prox = adjacente->prox;
+                }
+                free(adjacente);
+                break; // Só precisamos remover uma ocorrência
+            }
+            anterior = adjacente;
+            adjacente = adjacente->prox;
+        }
+    }
+
+    printf("Estação '%s' desativada.\n", g->adj[vertice].nome);
 }
 
 

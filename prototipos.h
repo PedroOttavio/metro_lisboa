@@ -14,5 +14,6 @@ void insere_estacoes(GRAFO* grafo);
 void adiciona_linha(VERTICE *vertice, const char *linha);
 void menor_caminho(GRAFO *g, int origem, int destino);
 void menu(GRAFO *g);
+void remove_vertice(GRAFO *g, int vertice);
 
 #endif
