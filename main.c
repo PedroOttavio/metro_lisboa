@@ -8,9 +8,11 @@
 
 int main(){
 
-    int capacidade_inicial = 29; //o grafo já inicia com 29 posições ocupadas
+    //função de teste para verificar se os grafos estavam sendo criados corretamente, a principio, estavam. Felizmente ou não
+    //testa_cria_grafo(); // testa a criação do grafo 
 
-    GRAFO *grafo = cria_grafo(capacidade_inicial); // alocando as posições para o nosso grafo
+
+    GRAFO *grafo = cria_grafo(); // alocando as posições para o nosso grafo
 
     insere_estacoes(grafo); // insere as estações no grafo
     menu(grafo);
