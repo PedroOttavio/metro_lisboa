@@ -369,27 +369,21 @@ void menor_caminho(GRAFO *g, int origem, int destino) {
     free(predecessores);
 }
 
-<<<<<<< HEAD
-void menu(GRAFO *g) {
-    int origem, destino, escolha;
-=======
+
 void menu(GRAFO *g)
 {
     int origem, destino, escolha, vertice;
->>>>>>> 9454b2c4de585ab518e391b22782c9c221c6692f
+    int total_estacoes = g->vertices;   //verificar se funcionou mesmo, qualquer coisa, apagar essa linha e procurar outra solução
+    //"A regra é clara, se funcionou, não mexa", Tite, Adenor Bachia Santos, 2021
 
     do {
         // exibe as opções
         printf("\nMenu:\n");
         printf("1. Imprimir o 'mapa'\n");
         printf("2. Encontrar menor caminho entre duas estacoes\n");
-<<<<<<< HEAD
         printf("3. Inserir nova estacao\n");
         printf("4. Sair\n");
-=======
-        printf("3. Sair\n");
-        printf("4. Desativar Estacao\n");
->>>>>>> 9454b2c4de585ab518e391b22782c9c221c6692f
+        printf("5. Desativar Estacao\n");
         printf("Insira a opcao: ");
         scanf("%d", &escolha);
 
@@ -410,7 +404,7 @@ void menu(GRAFO *g)
         case 4:
             printf("Saindo do menu...\n");
             break;
-        case 4:
+        case 5:
             printf("insira a estacao que deseja desativar (0 a %d): ", total_estacoes);
             scanf("%d",&vertice);
             remove_vertice(g,vertice);
@@ -427,6 +421,7 @@ void remove_vertice(GRAFO * g, int vertice){
         printf("Estação inválida.\n");
         return;
     }
+    
 
     // Remover todas as arestas que partem deste vértice
     ADJACENCIA *atual = g->adj[vertice].cabeca;
