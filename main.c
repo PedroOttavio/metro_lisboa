@@ -6,10 +6,11 @@
 
 
 
-int main()
-{
+int main(){
 
-    GRAFO *grafo = cria_grafo(total_estacoes); // cria um grafo com 29 vertices
+    int capacidade_inicial = 29; //o grafo já inicia com 29 posições ocupadas
+
+    GRAFO *grafo = cria_grafo(capacidade_inicial); // alocando as posições para o nosso grafo
 
     insere_estacoes(grafo); // insere as estações no grafo
     menu(grafo);
